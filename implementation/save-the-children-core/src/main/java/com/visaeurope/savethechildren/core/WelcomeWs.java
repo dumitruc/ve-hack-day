@@ -10,10 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @EnableAutoConfiguration
@@ -25,16 +22,6 @@ public class WelcomeWs {
     }
 
 
-    @RequestMapping("/sum")
-    @ResponseBody
-    String calculate(int... numbers) {
-        Integer result = 0;
-        for (int i : numbers) {
-            result = result + i;
-        }
-
-        return String.valueOf(result);
-    }
 
     @RequestMapping(method = RequestMethod.GET,value = "/object/{name}")
     ResponseEntity<?> back(@PathVariable String name){
@@ -42,6 +29,13 @@ public class WelcomeWs {
         return new ResponseEntity<Object>(responseBody,HttpStatus.ACCEPTED);
     }
 
+
+    @RequestMapping(method = RequestMethod.PUT,value = "/report/{userid}")
+    ResponseEntity<?> report(@PathVariable String userid, @RequestBody Report report){
+        String responseBody =  String.format("Hello %s",userid);
+        System.out.println("report = " + report.getExtraInfo());
+        return new ResponseEntity<Object>(responseBody,HttpStatus.ACCEPTED);
+    }
 
     @RequestMapping(method = RequestMethod.PUT,value = "/request/node/{name}")
     ResponseEntity<?> request(@PathVariable String name){

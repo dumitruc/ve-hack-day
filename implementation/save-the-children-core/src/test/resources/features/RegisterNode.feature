@@ -11,8 +11,12 @@ Feature: Node registration request
   Scenario: Submit a report on suspicious activity
     Given I am I have seen some suspicious activity
     And I have the SaveTheChildren account
-    When I submit all the required details of the activity
-    Then my report is successfully accepted
+    When I successfully submit all the required details of the activity
+    When I successfully submit following details of the activity
+      | Date      | 31/07/2015                           |
+      | Time      | 12:00                                |
+      | Location  | Jogoo Rd, Nairobi, Kenya             |
+      | ExtraInfo | It was advertised outside the market |
     And is scored
     And is pending actions
 
